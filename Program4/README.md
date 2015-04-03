@@ -2,7 +2,10 @@
 
 ### 1. QU Shell
 
-**Execution.** Your code should be able to handle statements which consist of a sequence of zero or more commands separated by pipes. And it should handle lines with zero or more statements. An example would be:```a|b|c;d|e;;f|g;h```This executes the first statement by running a, piping the ouput to b, piping that output to c and printing that output to standard out. It then proceeds with the next statemt (d and e) and then (f and g) - blank statements are acceptable and then the final statement (h). The shell should execute the piped commands in parallel (except for the built-ins which can be done immediately) and must wait until all commands for that statement have completed before going to the next statement. Thus, statements are done sequentially.You are **not allowed** to use the functions: system and popen or any other function that indirectly invokes the shell /bin/sh command. This defeats the entire purpose of our own shell (by using another!) To execute commands you will need to create a pipe (if needed), fork a process, duplicate the pipe to stdout and stdin (if needed), and run exec on the command.
+**Execution.** Your code should be able to handle statements which consist of a sequence of zero or more commands separated by pipes. And it should handle lines with zero or more statements. An example would be:```
+a|b|c;d|e;;f|g;h
+```
+This executes the first statement by running a, piping the ouput to b, piping that output to c and printing that output to standard out. It then proceeds with the next statemt (d and e) and then (f and g) - blank statements are acceptable and then the final statement (h). The shell should execute the piped commands in parallel (except for the built-ins which can be done immediately) and must wait until all commands for that statement have completed before going to the next statement. Thus, statements are done sequentially.You are **not allowed** to use the functions: system and popen or any other function that indirectly invokes the shell /bin/sh command. This defeats the entire purpose of our own shell (by using another!) To execute commands you will need to create a pipe (if needed), fork a process, duplicate the pipe to stdout and stdin (if needed), and run exec on the command.
 
 **Comments.** A comment starts with a # symbol and continues to the end of the line. It is not counted when inside a quoted string: e.g. "#".
 
@@ -19,6 +22,7 @@ $$ let a "A"
 $$ let b "B$a$"$$ let c ’C$b$’$$ listc: C$b$b: BAa: A$$ echo $c$CBA$$ let b ’$a$B’$$ listc: C$b$b: $a$Ba: A$$ echo $c$CAB$$ echo $dog$
 $$ exit
 ```
+
 **Built-ins.** Your code should support three more simple built-in commands.
 * exit: Causes the shell to exit.* status: Toggles on/off reporting of the exit status of any statement. The exit status of a statement is defined to be the exit status of the last command executed in its piped sequence. For simplicity, the exit status of a built-in is always 0 (success).* cd: Change the working directory. If an argument is given, change the working directory to that argument. (Report an error to stderr if not found.) If no argument is given, go to the home directory of the user, accessed by the environment variable HOME. If the HOME environment does not exist, it should go to the root /. For this you will need to look at the functions chdir and getenv.
 
