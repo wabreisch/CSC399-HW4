@@ -1,7 +1,7 @@
 /*******
  * Christian Duncan
  *
- * TechShell
+ * quShell
  *   This program is a simple shell script
  *   that is not partially functional.
  *
