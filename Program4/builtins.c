@@ -21,9 +21,11 @@
 void processSet(Command* cmd);
 void processList(Command* cmd);
 void exitShell();
+void cd(Command* cmd);
+void status();
 
-char *builtinNames[] = { "SET", "LIST", "EXIT", NULL };
-void (*builtinFn[])(Command*) = { processSet, processList, exitShell, NULL };
+char *builtinNames[] = { "SET", "LIST", "EXIT", "CD", "STATUS", NULL };
+void (*builtinFn[])(Command*) = { processSet, processList, exitShell, cd, status, NULL };
 
 /***
  * processBuiltin:
@@ -87,8 +89,18 @@ void exitShell() {
 /***
 * cd:
 ***/
-void cd() {
+void cd(Command* cmd) {
+  if (cmd->head == NULL || cmd->tail == NULL) {
+    chdir(getenv("HOME"));
+  } else {
+    chdir(cmd->head->arg);
+  }
 
+  char* cwd;
+  char buff[100];
+  cwd = getcwd(buff, 100);
+
+  printf("%s\n", cwd);
 }
 
 /***
