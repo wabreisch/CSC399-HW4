@@ -46,7 +46,7 @@
  ***/
 typedef struct {
   char *start;
-  enum { BASIC, SINGLE_QUOTE, DOUBLE_QUOTE, PIPE, SEMICOLON, EOL, ERROR } type;
+  enum { BASIC, SINGLE_QUOTE, DOUBLE_QUOTE, PIPE, SEMICOLON, EOL, ERROR, COMMENT } type;
 } aToken;
 
 /***

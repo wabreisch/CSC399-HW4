@@ -42,6 +42,9 @@
 // The set of variables in this shell.
 VarSet* varList = NULL;
 
+// Very simple method to define the shell's prompt -- will allow for easier prompt changes
+void shellPrompt() { printf(">> "); }
+
 /***
  * processLine:
  *    line: string to process (REFERENCE is BORROWED)
@@ -109,6 +112,9 @@ void processLine(char* line) {
     case EOL:
       // EOL is nearly same as SEMICOLON - just flag done as well
       doneFlag = 1;
+
+    case COMMENT:
+      doneFlag = 1; // Comment - we don't need to pay any attention to it
       
     case SEMICOLON:
       // We have a statement terminator
@@ -150,12 +156,12 @@ int main(int argc, char* argv[]) {
 
   char line[MAX_LINE_LENGTH+1];
 
-  printf(">> ");
+  shellPrompt();
 
   while (fgets(line, MAX_LINE_LENGTH+1, stdin) != NULL) {
     // We have our current line
     processLine(line);
-    printf(">> ");
+    shellPrompt();
   }
 
   // Everything ran smoothly
