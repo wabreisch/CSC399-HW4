@@ -1,5 +1,3 @@
-# Created by https://www.gitignore.io
-
 ### C ###
 # Object files
 *.o
@@ -33,3 +31,6 @@
 
 # Debug files
 *.dSYM/
+
+# Executable shell
+quShell

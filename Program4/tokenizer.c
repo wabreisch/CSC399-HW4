@@ -94,6 +94,12 @@ aToken getNextToken() {
     res.type = SEMICOLON;  // Store type as SEMICOLON
     ++currTokPos;      // Skip the semicolon
     break;
+  case '#':
+    // We have a comment
+    printf("We have a comment.\n");
+    while (*currTokPos != '\n') {
+      currTokPos++; // Continue to the end of the line
+    }
 
   default:
     // This is start of a basic string
