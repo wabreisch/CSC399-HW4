@@ -60,7 +60,7 @@ void printCommand(Command* cmd, FILE* stream) {
   if (cmd == NULL) {
     // Empty command, nothing to execute or print
     return;
-  } 
+  }
   
   fprintf(stream, "Executing Command: %s\n", cmd->command);
   fprintf(stream, "...Input: %s\n", (cmd->input == STDIN ? "STDIN" : "PIPE"));

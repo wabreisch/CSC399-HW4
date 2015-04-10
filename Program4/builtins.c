@@ -20,9 +20,10 @@
 
 void processSet(Command* cmd);
 void processList(Command* cmd);
+void exitShell();
 
-char *builtinNames[] = { "SET", "LIST", NULL };
-void (*builtinFn[])(Command*) = { processSet, processList, NULL };
+char *builtinNames[] = { "SET", "LIST", "EXIT", NULL };
+void (*builtinFn[])(Command*) = { processSet, processList, exitShell, NULL };
 
 /***
  * processBuiltin:
@@ -75,3 +76,10 @@ void processList(Command* cmd) {
   fflush(stdout);
 }
 
+/***
+* exitShell:
+*   Exits the shell on the "EXIT" command
+***/
+void exitShell() {
+  exit(0);
+}
