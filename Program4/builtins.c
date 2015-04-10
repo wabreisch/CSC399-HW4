@@ -87,20 +87,29 @@ void exitShell() {
 }
 
 /***
-* cd:
+* cd: Changes the working directory to the directory specified by the user
+* as the first argument to the cd command
+* If no argument is given, the working directory is changed to $HOME
 ***/
 void cd(Command* cmd) {
-  if (cmd->head == NULL || cmd->tail == NULL) {
-    chdir(getenv("HOME"));
+
+  if (cmd->head == NULL) {
+    if (getenv("HOME") != NULL) {
+      chdir(getenv("HOME"));
+    } else {
+      chdir("/");
+    }
   } else {
-    chdir(cmd->head->arg);
+    chdir(cmd->head->arg); // Attempt to change directory...
+    if (errno != 0) {
+      fprintf(stderr, "Error: directory %s does not exist\n", cmd->head->arg); // print to stderr
+      errno = 0; // reset errno so we don't accidentally report an error if the next directory is valid
+    }
   }
-
-  char* cwd;
-  char buff[100];
-  cwd = getcwd(buff, 100);
-
-  printf("%s\n", cwd);
+  // char* cwd; -- could be used for a pwd function
+  // char buff[100]; -- could be used for a pwd function
+  // cwd = getcwd(buff, 100); -- could be used for a pwd function
+  // printf("%s\n", cwd); -- could be used for a pwd function
 }
 
 /***
