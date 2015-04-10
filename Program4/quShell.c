@@ -150,9 +150,12 @@ int main(int argc, char* argv[]) {
 
   char line[MAX_LINE_LENGTH+1];
 
+  printf(">> ");
+
   while (fgets(line, MAX_LINE_LENGTH+1, stdin) != NULL) {
     // We have our current line
     processLine(line);
+    printf(">> ");
   }
 
   // Everything ran smoothly

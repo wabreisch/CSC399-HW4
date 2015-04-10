@@ -23,9 +23,11 @@ void processList(Command* cmd);
 void exitShell();
 void cd(Command* cmd);
 void status();
+void pwd();
 
-char *builtinNames[] = { "SET", "LIST", "EXIT", "CD", "STATUS", NULL };
-void (*builtinFn[])(Command*) = { processSet, processList, exitShell, cd, status, NULL };
+char *builtinNames[] = { "SET", "LIST", "EXIT", "CD", "STATUS", "PWD", NULL };
+void (*builtinFn[])(Command*) = { processSet, processList, exitShell, cd, status, pwd, NULL };
+int currStatus = 0;
 
 /***
  * processBuiltin:
@@ -102,18 +104,25 @@ void cd(Command* cmd) {
     chdir(cmd->head->arg); // Attempt to change directory...
     if (errno != 0) {
       fprintf(stderr, "Error: directory %s does not exist\n", cmd->head->arg); // print to stderr
-      errno = 0; // reset errno so we don't accidentally report an error if the next directory is valid
+      errno = 0; // reset errno so we don't incorrectly report an error if the next directory is valid
     }
   }
-  // char* cwd; -- could be used for a pwd function
-  // char buff[100]; -- could be used for a pwd function
-  // cwd = getcwd(buff, 100); -- could be used for a pwd function
-  // printf("%s\n", cwd); -- could be used for a pwd function
 }
 
 /***
-* status:
+* status: turns on (1) or off (0) the report of exit status of any statement
 ***/
 void status() {
+  if (currStatus == 0) { currStatus = 1; }
+  else if (currStatus == 1) { currStatus = 0; }
+}
 
+/***
+* pwd is not required for the assignment, but I thought it would be a useful function to have
+***/
+void pwd() {
+  char* cwd;
+  char buff[100];
+  cwd = getcwd(buff, 100);
+  printf("%s\n", cwd);
 }
