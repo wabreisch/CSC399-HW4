@@ -83,3 +83,17 @@ void processList(Command* cmd) {
 void exitShell() {
   exit(0);
 }
+
+/***
+* cd:
+***/
+void cd() {
+
+}
+
+/***
+* status:
+***/
+void status() {
+
+}
