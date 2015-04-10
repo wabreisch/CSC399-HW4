@@ -92,7 +92,6 @@ void exitShell() {
 * If no argument is given, the working directory is changed to $HOME
 ***/
 void cd(Command* cmd) {
-
   if (cmd->head == NULL) {
     if (getenv("HOME") != NULL) {
       chdir(getenv("HOME"));

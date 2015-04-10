@@ -12,3 +12,5 @@
 ### [chdir](http://man7.org/linux/man-pages/man2/chdir.2.html)
 
 ### [getenv](http://man7.org/linux/man-pages/man3/getenv.3.html)
+
+### [pipe](http://man7.org/linux/man-pages/man2/pipe.2.html)
