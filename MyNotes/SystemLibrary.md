@@ -8,3 +8,7 @@
 
 ### [dup](http://man7.org/linux/man-pages/man2/dup.2.html)
 * Used to duplicate a file descriptor, which indicates access status to a particular file (stdin, stdout, stderr)
+
+### [chdir](http://man7.org/linux/man-pages/man2/chdir.2.html)
+
+### [getenv](http://man7.org/linux/man-pages/man3/getenv.3.html)
