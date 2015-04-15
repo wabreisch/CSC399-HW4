@@ -98,7 +98,7 @@ aToken getNextToken() {
   case '#':
     // We have a comment -- we set the start to null and type to COMMENT so we can begin processing the next line
     res.start = NULL;
-    res.type = COMMENT;
+    res.type = COMMENT; // store type as comment
     break;
 
   default:

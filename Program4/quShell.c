@@ -30,11 +30,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <sys/types.h>
 #include "global.h"
 #include "tokenizer.h"
 #include "varSet.h"
 #include "command.h"
 #include "builtins.h"
+#include "unistd.h"
+
 
 #define MAX_LINE_LENGTH 500
 #define MAX_SUBSTITUTION_LEVEL 10
@@ -42,7 +45,7 @@
 // The set of variables in this shell.
 VarSet* varList = NULL;
 
-// Very simple method to define the shell's prompt -- will allow for easier prompt changes
+// Very simple method to define the shell's prompt -- will allow for easier future prompt changes
 void shellPrompt() { printf(">> "); }
 
 /***
@@ -89,10 +92,9 @@ void processLine(char* line) {
 	addArg(cmd, answer.start);
       }
       break;
-
+////// PIPE
     case PIPE:
       // We have a pipe, so command is now completed and ready to be executed
-
       if (processMode == CMD || processMode == PIPED_CMD) {
 	// A pipe while waiting for a command!
 	// Empty (blank) statements for pipes are not allowed
@@ -104,10 +106,24 @@ void processLine(char* line) {
 	cmd->output = PIPE_OUT;    // Set its output stream to that of a PIPE
 	processCommand(cmd);
 	freeCommand(cmd);
+
+	/* MY ADDITIONS */
+  pid_t beforepid = getpid();
+  int pipefd[2];
+  // pipefd = dup(x);
+	fork();
+  pipe(pipefd);
+  printf("pipefd: %d\n", *pipefd);
+	pid_t afterpid = getpid();
+  printf("FORK: PID before: %u -- PID after: %u\n", beforepid, afterpid);
+	/* MY ADDITIONS */
+
 	cmd = NULL;
 	processMode = PIPED_CMD;  // Next command uses a piped command
       }
       break;
+////// PIPE
+
 
     case EOL:
       // EOL is nearly same as SEMICOLON - just flag done as well

@@ -10,7 +10,16 @@
 * Used to duplicate a file descriptor, which indicates access status to a particular file (stdin, stdout, stderr)
 
 ### [chdir](http://man7.org/linux/man-pages/man2/chdir.2.html)
+* **Done**
 
 ### [getenv](http://man7.org/linux/man-pages/man3/getenv.3.html)
 
 ### [pipe](http://man7.org/linux/man-pages/man2/pipe.2.html)
+* [Nice pipe article](http://linux.die.net/man/2/pipe) (which makes use of fork() as well)
+* [Good article on pipes and file descriptors here](http://pubs.opengroup.org/onlinepubs/009695399/functions/pipe.html)
+
+
+### Pipes
+* `a |` induces a broken pipe error
+* `| b` induces a missing command error
+* `a | b` should operate properly
