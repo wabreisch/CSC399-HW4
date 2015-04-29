@@ -85,7 +85,7 @@ void processList(Command* cmd) {
 *   Exits the shell on the "EXIT" command
 ***/
 void exitShell() {
-  exit(0);
+	exit(0);
 }
 
 /***
@@ -115,6 +115,7 @@ void cd(Command* cmd) {
 void status() {
   if (currStatus == 0) { currStatus = 1; }
   else if (currStatus == 1) { currStatus = 0; }
+  printf("status: %d\n", currStatus);
 }
 
 /***
