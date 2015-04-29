@@ -27,7 +27,7 @@ void setupShouting() {
 
   if (fork() == 0) {   // Child process
     dup2(comm[0], 0);  // Input stream now comes from pipe!
-    close(comm[0]);    // Don't need the pipe - it is now 0.
+    close(comm[0]);    // Don't need the pipe - it is now 0. -- but the dup2()'d one survives
     close(comm[1]);    // (This process) doesn't need output of pipe at all.
     
     execlp("tr", "tr", "[a-z]", "[A-Z]", NULL);
@@ -37,8 +37,8 @@ void setupShouting() {
 
   // Parent process
   dup2(comm[1], 1);  // Output (of parent process) now goes to the pipe!
-  close(comm[1]);    // Don't need comm[1] - it is now 1
-  close(comm[0]);    // This process doesn't need input of pipe.
+  close(comm[1]);    // Don't need comm[1] - it is now 1 -- but the dup2()'d one survives
+  close(comm[0]);    // This process doesn't need input of pipe. -- closes the dup2()'d comm[0]
 }
 
 int main() {

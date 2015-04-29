@@ -92,6 +92,7 @@ void processCommand(Command* cmd) {
   if (!processBuiltin(cmd)) {
     // It was not a built-in so execute normally (ok, for now we just print it)
     printCommand(cmd, stdout);
+    //execl("/bin/ls", "/bin/ls", (char *) 0);
   }
 }
 

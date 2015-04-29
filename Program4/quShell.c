@@ -68,8 +68,8 @@ void processLine(char* line) {
       // Error (for some reason)
       fprintf(stderr, "Error parsing line.\n");
       if (cmd != NULL) {
-	freeCommand(cmd);
-	cmd = NULL;
+	     freeCommand(cmd);
+	     cmd = NULL;
       }
       return;
 
@@ -77,7 +77,7 @@ void processLine(char* line) {
     case DOUBLE_QUOTE:
     case SINGLE_QUOTE:
       if (processMode == CMD) {
-	// This is a new command
+	     // This is a new command
 	assert (cmd == NULL);
 	cmd = newCommand(answer.start);
 	processMode = ARGS;  // Switch modes
@@ -108,14 +108,16 @@ void processLine(char* line) {
 	freeCommand(cmd);
 
 	/* MY ADDITIONS */
-  pid_t beforepid = getpid();
-  int pipefd[2];
-  // pipefd = dup(x);
-	fork();
-  pipe(pipefd);
-  printf("pipefd: %d\n", *pipefd);
-	pid_t afterpid = getpid();
-  printf("FORK: PID before: %u -- PID after: %u\n", beforepid, afterpid);
+	  int comm[2];
+	  pipe(comm);
+	  if (fork() == 0) {
+	    dup2(comm[0], 0);
+	    close(comm[0]);
+	    close(comm[1]);
+	  }
+	  dup2(comm[1], 1);
+	  close(comm[1]);
+	  close(comm[0]);
 	/* MY ADDITIONS */
 
 	cmd = NULL;
