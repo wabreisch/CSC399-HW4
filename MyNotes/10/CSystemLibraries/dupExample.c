@@ -25,7 +25,7 @@ void setupShouting() {
   int comm[2];
   pipe(comm);  // Create a pipe - for communicating with tr program
 
-  if (fork() == 0) {   // Child process
+  if (fork() == 0) {   // Child process, otherwise we are the parent process
     dup2(comm[0], 0);  // Input stream now comes from pipe!
     close(comm[0]);    // Don't need the pipe - it is now 0. -- but the dup2()'d one survives
     close(comm[1]);    // (This process) doesn't need output of pipe at all.

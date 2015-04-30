@@ -9,12 +9,18 @@
  * See Tokenizer.h for details...
  *******/
 #include "tokenizer.h"
+#include "varset.h"
+#include "global.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 static char* tokLine = NULL;
 static char* currTokPos;
+int i;
+char tempStr[100];
+char* fakeInput = "HELLO";
+char wordSet[3];
 
 void startToken(char* line) {
   if (line == NULL) {

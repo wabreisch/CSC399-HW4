@@ -74,6 +74,7 @@ void startToken(char *line);
  *      DOUBLE_QUOTE: If token is "double quoted string"
  *      PIPE: If token is '|'
  *      SEMICOLON: If token is ';'
+ *	COMMENT: If token starts with '#'
  *
  *    Returns aToken.start:
  *      If not EOL or ERROR, then start points to start of the string

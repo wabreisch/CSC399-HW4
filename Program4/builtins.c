@@ -67,8 +67,27 @@ void processSet(Command* cmd) {
     // No argument... do nothing
     return;
   }
-  
-  addToSet(varList, cmd->head->arg, cmd->head->next == NULL ? "" : cmd->head->next->arg);
+  if (*(cmd->tail->arg) == '$') {
+    char* tailCopy = malloc(sizeof(cmd->tail->arg)+1); // copy cmd->tail->arg into tailCopy because it's less awkward to deal with
+    char tempStr[100];
+    int i = 0;
+    strcpy(tailCopy, cmd->tail->arg);
+    tailCopy++; // Skip over the first $
+    while (*tailCopy != '$') { // parse the name of the variable we're looking for WITHOUT $
+      tempStr[i] = *tailCopy;
+      tailCopy++;
+      i++;
+    }
+    tempStr[i] = '\0'; // fixes a strange error in which garbage characters were being included with tempStr
+    if (findInSet(varList, tempStr) == NULL) {
+      printf("Unknown variable: %s\n", tempStr);
+      return;
+    }
+    char* tempValue = findInSet(varList, tempStr)->value;
+    addToSet(varList, cmd->head->arg, tempValue);
+  } else {
+    addToSet(varList, cmd->head->arg, cmd->head->next == NULL ? "" : cmd->head->next->arg);
+  }
 }
 
 /***

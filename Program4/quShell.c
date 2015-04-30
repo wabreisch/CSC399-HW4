@@ -109,9 +109,9 @@ void processLine(char* line) {
 
 	/* MY ADDITIONS */
 	  int comm[2];
-	  pipe(comm);
+	  pipe(comm); // Creates a pipe out of comm
 	  if (fork() == 0) {
-	    dup2(comm[0], 0);
+	    dup2(comm[0], 0); // Duplicates comm[0], so we can close it
 	    close(comm[0]);
 	    close(comm[1]);
 	  }
